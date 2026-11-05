@@ -63,7 +63,7 @@ export function DecorativeVisualPanel() {
               lineHeight: isDesktop ? 54 : 44,
             }}
           >
-            Consolium
+            Festos
           </Text>
           <View className="mt-1 h-1.5 w-[78%] rounded-full bg-white" />
         </View>

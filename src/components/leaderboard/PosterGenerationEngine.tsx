@@ -102,7 +102,7 @@ export default function PosterGenerationEngine({
         const rankSuffix = rankIndex === 1 ? 'st' : rankIndex === 2 ? 'nd' : rankIndex === 3 ? 'rd' : 'th';
         
         const renderData = {
-          title: 'CONSOLIUM',
+          title: 'FESTOS',
           unit_name: row.organisation_name,
           points: `${row.total_points} Points`,
           rank: `RANK #${rankIndex}`,

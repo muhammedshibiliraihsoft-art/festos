@@ -53,7 +53,7 @@ export default function PublicAiChatbot({ festivalId }: PublicAiChatbotProps) {
     {
       id: 'welcome',
       role: 'assistant',
-      content: 'ഹായ്! ഞാൻ Consolium AI Assistant ആണ്. ഫെസ്റ്റിവൽ ഫലങ്ങളെക്കുറിച്ചും പോയിന്റുകളെക്കുറിച്ചും ചോദിക്കൂ!\n\nHi! I am the Consolium AI Assistant. How can I help you today?\n\n[OPTION:What all can I ask you?|Chat anything] [OPTION:I want to find a result|Find result]',
+      content: 'ഹായ്! ഞാൻ Festos AI Assistant ആണ്. ഫെസ്റ്റിവൽ ഫലങ്ങളെക്കുറിച്ചും പോയിന്റുകളെക്കുറിച്ചും ചോദിക്കൂ!\n\nHi! I am the Festos AI Assistant. How can I help you today?\n\n[OPTION:What all can I ask you?|Chat anything] [OPTION:I want to find a result|Find result]',
       timestamp: new Date(),
     },
   ]);
@@ -161,7 +161,7 @@ export default function PublicAiChatbot({ festivalId }: PublicAiChatbotProps) {
         minute: '2-digit',
       });
 
-      const systemInstruction = `You are the "Consolium AI Assistant", a friendly, public-facing virtual chatbot for festival results and schedules.
+      const systemInstruction = `You are the "Festos AI Assistant", a friendly, public-facing virtual chatbot for festival results and schedules.
 
 CRITICAL SAFETY RULES:
 1. You are strictly READ-ONLY. You have no ability to write or modify data.
@@ -443,7 +443,7 @@ Use the above CONTEXT to answer the user query accurately. If the context does n
                   <Sparkles size={16} color="#10B981" />
                 </View>
                 <View>
-                  <Text style={[styles.headerTitle, dStyles.headerTitle]}>Consolium AI</Text>
+                  <Text style={[styles.headerTitle, dStyles.headerTitle]}>Festos AI</Text>
                   <Text style={[styles.headerSubtitle, dStyles.headerSubtitle]}>Public Festival Assistant • Read Only</Text>
                 </View>
               </View>

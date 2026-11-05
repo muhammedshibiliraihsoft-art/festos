@@ -2,22 +2,21 @@ import { Platform } from 'react-native';
 
 export type PortalPwa = 'admin' | 'team-management' | 'team' | 'stage';
 
-const PORTAL_METADATA: Record<PortalPwa, { fallbackName: string; manifest: string }> = {
-  admin: { fallbackName: 'Consolium', manifest: '/manifest.json' },
-  'team-management': { fallbackName: 'Team Management', manifest: '/team-management-manifest.json' },
-  team: { fallbackName: 'Team Portal', manifest: '/team-manifest.json' },
-  stage: { fallbackName: 'Stage Management', manifest: '/manifest.json' },
+const PORTAL_METADATA: Record<PortalPwa, { manifest: string }> = {
+  admin: { manifest: '/manifest.json' },
+  'team-management': { manifest: '/team-management-manifest.json' },
+  team: { manifest: '/team-manifest.json' },
+  stage: { manifest: '/manifest.json' },
 };
 
-export function applyPortalPwaMetadata(portal: PortalPwa, displayName?: string | null, identityId?: string | null) {
+export function applyPortalPwaMetadata(portal: PortalPwa, _displayName?: string | null, identityId?: string | null) {
   if (Platform.OS !== 'web' || typeof document === 'undefined') return () => {};
 
   const metadata = PORTAL_METADATA[portal];
-  const appName = displayName?.trim() || metadata.fallbackName;
   const manifestUrl = portal !== 'admin' && identityId
-    ? `/portal-manifest?${new URLSearchParams({ portal, name: appName, identity: identityId }).toString()}`
+    ? `/portal-manifest?${new URLSearchParams({ portal, name: 'Festos', identity: identityId }).toString()}`
     : metadata.manifest;
-  document.title = portal === 'admin' ? 'Consolium' : `${appName} | Consolium`;
+  document.title = 'Festos';
 
   const upsertMeta = (name: string, content: string) => {
     let element = document.head.querySelector<HTMLMetaElement>(`meta[name="${name}"]`);
@@ -40,9 +39,8 @@ export function applyPortalPwaMetadata(portal: PortalPwa, displayName?: string |
     });
   };
 
-  const shortName = Array.from(appName).slice(0, 12).join('');
-  upsertMeta('apple-mobile-web-app-title', shortName);
-  upsertMeta('application-name', appName);
+  upsertMeta('apple-mobile-web-app-title', 'Festos');
+  upsertMeta('application-name', 'Festos');
   upsertMeta('apple-mobile-web-app-capable', 'yes');
   upsertMeta('apple-mobile-web-app-status-bar-style', 'default');
   upsertMeta('theme-color', portal === 'team' ? '#1D1B19' : '#FFFFFF');
@@ -51,9 +49,9 @@ export function applyPortalPwaMetadata(portal: PortalPwa, displayName?: string |
   upsertLink('icon', '/brand/favicon.png', '48x48');
 
   return () => {
-    document.title = 'Consolium';
-    upsertMeta('apple-mobile-web-app-title', 'Consolium');
-    upsertMeta('application-name', 'Consolium');
+    document.title = 'Festos';
+    upsertMeta('apple-mobile-web-app-title', 'Festos');
+    upsertMeta('application-name', 'Festos');
     upsertLink('manifest', PORTAL_METADATA.admin.manifest);
     document.head.querySelectorAll<HTMLLinkElement>('link[rel="manifest"]').forEach((element) => {
       delete element.dataset.portalPwa;

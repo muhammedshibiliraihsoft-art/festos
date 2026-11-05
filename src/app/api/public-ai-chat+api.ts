@@ -80,7 +80,7 @@ export async function POST(request: Request) {
     let aiText = '';
     let lastError: any = null;
 
-    const systemInstruction = `You are the "Consolium AI Assistant", a friendly, public-facing virtual chatbot for festival results and schedules.
+    const systemInstruction = `You are the "Festos AI Assistant", a friendly, public-facing virtual chatbot for festival results and schedules.
 
 CRITICAL SAFETY RULES:
 1. You are strictly READ-ONLY. You have no ability to write or modify data.

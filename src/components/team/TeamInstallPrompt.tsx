@@ -81,9 +81,9 @@ export function TeamInstallPrompt() {
           <View style={{ width: 30, height: 30, borderRadius: 10, backgroundColor: ui.colors.primarySoft, alignItems: 'center', justifyContent: 'center' }}>
             <ConsoliumLogo size={30} borderRadius={9} />
           </View>
-          <TeamText numberOfLines={1} style={{ flex: 1, minWidth: 0, color: ui.colors.text, fontSize: 12, fontWeight: '700' }}>Install {context?.team_name || 'Team Portal'}</TeamText>
+          <TeamText numberOfLines={1} style={{ flex: 1, minWidth: 0, color: ui.colors.text, fontSize: 12, fontWeight: '700' }}>Install Festos</TeamText>
           {installEvent ? (
-            <Pressable onPress={handleInstall} accessibilityRole="button" accessibilityLabel="Install Team Portal"
+            <Pressable onPress={handleInstall} accessibilityRole="button" accessibilityLabel="Install Festos"
               style={{ minHeight: 38, minWidth: 76, paddingHorizontal: 11, borderRadius: 11, backgroundColor: ui.colors.navActive, alignItems: 'center', justifyContent: 'center', flexDirection: 'row', gap: 5 }}>
               <Download size={14} color={ui.colors.navActiveText} />
               <TeamText style={{ color: ui.colors.navActiveText, fontSize: 11, fontWeight: '700' }}>Install</TeamText>

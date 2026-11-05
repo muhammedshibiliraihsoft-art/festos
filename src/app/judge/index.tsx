@@ -16,7 +16,7 @@ import { ConsoliumLogo } from '@/components/ui/ConsoliumLogo';
 import { applyPortalPwaMetadata } from '@/core/utils/portalPwaMetadata';
 
 export default function JudgePortalLanding() {
-  useEffect(() => applyPortalPwaMetadata('admin', 'Consolium Judge'), []);
+  useEffect(() => applyPortalPwaMetadata('admin', 'Festos'), []);
   const router = useRouter();
   const params = useLocalSearchParams();
   
@@ -489,7 +489,7 @@ export default function JudgePortalLanding() {
               </View>
               
               <View className="mt-16 items-center">
-                <Text className="text-[#94A3B8] font-poppins-medium text-[10px] tracking-widest uppercase">Consolium</Text>
+                <Text className="text-[#94A3B8] font-poppins-medium text-[10px] tracking-widest uppercase">Festos</Text>
               </View>
             </View>
 
@@ -527,7 +527,7 @@ export default function JudgePortalLanding() {
               </View>
 
               <View className="mt-12 mb-6 items-center">
-                <Text className="text-[#94A3B8] font-poppins-medium text-[10px] tracking-widest uppercase">Consolium</Text>
+                <Text className="text-[#94A3B8] font-poppins-medium text-[10px] tracking-widest uppercase">Festos</Text>
               </View>
             </View>
 

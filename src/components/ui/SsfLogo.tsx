@@ -16,7 +16,7 @@ export const SsfLogo: React.FC<SsfLogoProps> = ({ size = 'md', showText = true }
  {showText && (
  <View className="ml-3 justify-center">
  <Text className="text-ssf-primary font-poppins text-xs uppercase tracking-widest leading-tight">
- Consolium
+ Festos
  </Text>
  <Text className="text-ssf-gold font-poppins-black text-[10px] uppercase tracking-widest leading-none">
  Management

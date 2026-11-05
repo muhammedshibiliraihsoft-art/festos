@@ -66,7 +66,7 @@ Live authenticated end-to-end flows, real-device/native tests and production dep
 
 ## Core login layout
 
-The core login uses centered Consolium branding and a compact credentials form on the selected core background. The festival marketing hero, sector logo, and promotional cards are removed. Credential validation, auth service calls, and store updates remain unchanged. The public results link is removed from the login form; the public results route itself remains available. The isolated appearance fixture includes the real login UI with sign-in replaced by an explicit preview-only failure.
+The core login uses centered Festos branding and a compact credentials form on the selected core background. The festival marketing hero, sector logo, and promotional cards are removed. Credential validation, auth service calls, and store updates remain unchanged. The public results link is removed from the login form; the public results route itself remains available. The isolated appearance fixture includes the real login UI with sign-in replaced by an explicit preview-only failure.
 
 Login validation: production web export passed; 320/390/768/1366px fixture checks found no horizontal overflow. Required-field errors, password visibility, preview-only failed sign-in recovery, and common Dark colours were verified. Real backend sign-in was not exercised.
 

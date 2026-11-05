@@ -43,7 +43,7 @@ export default function ParticipantResultPage() {
       <Head><style>{`
 .bg-pattern { background-image: radial-gradient(rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 20px 20px; }
 `}</style>
-        <title>Search Results - Consolium</title>
+        <title>Search Results - Festos</title>
       </Head>
       
       {/* TopNavBar */}
@@ -54,8 +54,8 @@ export default function ParticipantResultPage() {
             <Text className="text-alviora-primary font-title-md font-semibold">Back</Text>
           </TouchableOpacity>
           <a className="font-headline-lg text-headline-lg font-black text-alviora-primary tracking-tighter" href={`/leaderboard?tenant_id=${tenantId}&bypass_html=true`}>
-            <img src="/brand/consolium-icon-192.png" alt="Consolium" width="32" height="32" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: 8, borderRadius: 8 }} />
-            <span className="text-2xl uppercase" style={{fontFamily:"Barabara, sans-serif",fontWeight:"800",letterSpacing:"0.05em",color:"#ffffff"}}>CONSOLIUM</span>
+            <img src="/brand/consolium-icon-192.png" alt="Festos" width="32" height="32" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: 8, borderRadius: 8 }} />
+            <span className="text-2xl uppercase" style={{fontFamily:"Barabara, sans-serif",fontWeight:"800",letterSpacing:"0.05em",color:"#ffffff"}}>FESTOS</span>
           </a>
         </div>
       </nav>

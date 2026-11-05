@@ -92,7 +92,7 @@ export function PortalInstallPrompt({ portal = 'main' }: { portal?: InstallPorta
     }
   };
 
-  const portalLabel = portal === 'main' ? 'Consolium' : 'Team Management';
+  const portalLabel = 'Festos';
   return (
     <View style={{ marginHorizontal: 12, marginTop: 10, marginBottom: 8, padding: 12, borderRadius: 14,
       borderWidth: 1, borderColor: ui.colors.border, backgroundColor: ui.colors.surface, gap: 8 }}>

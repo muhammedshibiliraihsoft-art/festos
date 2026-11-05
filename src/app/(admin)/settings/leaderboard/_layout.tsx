@@ -66,7 +66,7 @@ const formatDateTime = (value: string | null) => {
 
 const getDistrictLabel = (row: LeaderboardRow) => {
   if (row.organisation_type?.toLowerCase().includes('district')) return row.organisation_name;
-  return 'Consolium District';
+  return 'Festos District';
 };
 
 const Sidebar = ({
@@ -89,7 +89,7 @@ const Sidebar = ({
           </View>
           {!compact && (
             <View style={{ flex: 1 }}>
-              <Text style={styles.brandTitle}>Consolium</Text>
+              <Text style={styles.brandTitle}>Festos</Text>
               <Text style={styles.brandYear}>2026 Admin</Text>
             </View>
           )}
@@ -307,7 +307,7 @@ export default function LeaderboardLayout() {
                 <ArrowLeft size={21} color={coreColor(colors.navy, 'primaryText')} />
               </TouchableOpacity>
               <View>
-                <Text style={styles.eyebrow}>Consolium</Text>
+                <Text style={styles.eyebrow}>Festos</Text>
                 <Text style={styles.pageTitle}>{pageTitle}</Text>
               </View>
             </View>

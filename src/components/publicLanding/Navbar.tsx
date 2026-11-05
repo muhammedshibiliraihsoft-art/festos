@@ -40,7 +40,7 @@ export function Navbar() {
           <ConsoliumLogo size={36} style={{ marginRight: 12 }} />
           <View>
             <Text className="font-poppins-bold uppercase" style={{ color: '#FFFFFF', fontSize: 12, letterSpacing: 2 }}>
-              Consolium
+              Festos
             </Text>
             <Text className="font-poppins uppercase" style={{ color: 'rgba(255,255,255,0.58)', fontSize: 10, letterSpacing: 1.5 }}>
               Festival Management

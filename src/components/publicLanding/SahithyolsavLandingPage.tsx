@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 export function SahithyolsavLandingPage({ page = 'landing' }: { page?: 'landing' | 'schedule' | 'units' | 'items' }) {
   return (
     <View style={styles.container}>
-      <Text>Consolium (Web Version Available)</Text>
+      <Text>Festos (Web Version Available)</Text>
     </View>
   );
 }

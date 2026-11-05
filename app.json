@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Consolium",
+    "name": "Festos",
     "slug": "sahi-web",
     "version": "1.0.0",
     "orientation": "default",
@@ -11,7 +11,7 @@
     "ios": {
       "supportsTablet": true,
       "infoPlist": {
-        "CFBundleDisplayName": "Consolium"
+        "CFBundleDisplayName": "Festos"
       }
     },
     "android": {
@@ -26,8 +26,8 @@
     "web": {
       "output": "single",
       "favicon": "./src/assets/images/favicon.png",
-      "name": "Consolium",
-      "shortName": "Consolium",
+      "name": "Festos",
+      "shortName": "Festos",
       "display": "standalone",
       "backgroundColor": "#ffffff",
       "themeColor": "#FFFFFF"
@@ -50,7 +50,7 @@
       [
         "expo-camera",
         {
-          "cameraPermission": "Allow Consolium Judge Portal to use the camera for scanning access QR codes."
+          "cameraPermission": "Allow Festos Judge Portal to use the camera for scanning access QR codes."
         }
       ]
     ],

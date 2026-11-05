@@ -266,7 +266,7 @@ function DesktopSidebar({
       <View style={{ flex: 1, minHeight: 0 }}>
         <View style={[styles.brand, collapsed && styles.brandCollapsed]}>
           <View style={styles.brandMark}>
-            <ConsoliumLogo size={42} borderRadius={13} />
+            <ConsoliumLogo size={42} borderRadius={13} style={{ backgroundColor: 'transparent' }} />
           </View>
           {!collapsed && (
             <View style={{ flex: 1 }}>
@@ -666,7 +666,7 @@ export function AdminAppShell({ children }: { children: React.ReactNode }) {
   const pageTitle = useMemo(() => getPageTitle(pathname), [pathname]);
   const { useActiveFestival } = useFestival();
   const { data: activeFestival } = useActiveFestival();
-  const festivalName = activeFestival?.custom_name?.trim() || "Consolium";
+  const festivalName = activeFestival?.custom_name?.trim() || "Festos";
 
   React.useEffect(() => {
     if (pathname.startsWith('/stage-management/venue/')) return;
@@ -784,7 +784,7 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 13,
-    backgroundColor: ui.colors.primary,
+    backgroundColor: coreColor("#FBFBFC", 'surface'),
     alignItems: "center",
     justifyContent: "center",
   },

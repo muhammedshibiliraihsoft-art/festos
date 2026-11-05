@@ -1,8 +1,8 @@
 {
   "id": "/team-management-app",
-  "name": "Consolium Team Management",
-  "short_name": "Team Management",
-  "description": "Team leader account management for Consolium festival administrators.",
+  "name": "Festos",
+  "short_name": "Festos",
+  "description": "Festos team leader account management.",
   "start_url": "/team-leaders?installedPortal=team-management",
   "scope": "/",
   "display": "standalone",

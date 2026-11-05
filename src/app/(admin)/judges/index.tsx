@@ -1420,7 +1420,7 @@ export default function JudgesPage() {
             <View style={{ flex: 1, paddingRight: 16, justifyContent: 'flex-start' }}>
               <ConsoliumLogo size={48} style={{ marginBottom: 8 }} />
               <Text style={{ fontSize: 26, fontFamily: 'Poppins_900Black', color: '#000080', textTransform: 'uppercase', letterSpacing: 2, marginBottom: 2 }}>
-                CONSOLIUM
+                FESTOS
               </Text>
               <Text style={{ fontSize: 16, fontFamily: 'Poppins_700Bold', color: legacyCoreOutputColors.text, textTransform: 'uppercase', letterSpacing: 1, marginBottom: 12 }}>
                 OFFICIAL EVALUATION SHEET

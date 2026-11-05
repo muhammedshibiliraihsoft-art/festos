@@ -38,7 +38,7 @@ export function HeroSection() {
             className="font-poppins-black uppercase"
             style={{ color: '#FFE76A', fontSize: isTablet ? 17 : 15, letterSpacing: 3.5 }}
           >
-            Consolium
+            Festos
           </Text>
           <Text
             className="mt-3 font-cooper"
@@ -52,7 +52,7 @@ export function HeroSection() {
               textShadowRadius: 18,
             }}
           >
-            Consolium
+            Festos
           </Text>
           <Text
             className="mt-3 font-poppins-black uppercase"

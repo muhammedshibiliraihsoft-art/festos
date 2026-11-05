@@ -1,8 +1,8 @@
 {
   "id": "/team/",
-  "name": "Consolium Team Portal",
-  "short_name": "Team Portal",
-  "description": "Team Leader portal for Consolium festival teams.",
+  "name": "Festos",
+  "short_name": "Festos",
+  "description": "Festos team portal.",
   "start_url": "/team/login?installedPortal=team-leader",
   "scope": "/team/",
   "display": "standalone",

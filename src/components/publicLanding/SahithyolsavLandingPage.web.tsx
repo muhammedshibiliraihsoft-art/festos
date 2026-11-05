@@ -29,7 +29,7 @@ const InitialLoader = ({ isReady }: { isReady: boolean }) => {
     <div className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-alviora-bg transition-opacity duration-500 ease-in-out ${isReady ? 'opacity-0' : 'opacity-100'}`}>
       <div className="flex flex-col items-center gap-8 fade-in-up visible">
         <span className="text-5xl uppercase tracking-widest text-alviora-primary keep-font drop-shadow-lg" style={{fontFamily:"Barabara, sans-serif",fontWeight:"normal",letterSpacing:"0.05em",color:"#ffffff"}}>
-          CONSOLIUM
+          FESTOS
         </span>
         <Swirling className="w-16 h-16 text-white" />
         <p className="font-['Handjet'] text-sm tracking-widest text-white/70 uppercase animate-pulse">Initializing Experience...</p>
@@ -493,7 +493,7 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
 
   // Ticker Logic
   const tickerItems = useMemo(() => {
-    if (!publishedResultsQuery.data || publishedResultsQuery.data.length === 0) return ["Welcome to Consolium"];
+    if (!publishedResultsQuery.data || publishedResultsQuery.data.length === 0) return ["Welcome to Festos"];
     return publishedResultsQuery.data.slice(0, 10).map((r: any) => {
       const topWinner = r.participants?.find((p: any) => p.position === 1);
       return `RESULT PUBLISHED: ${r.item_name} ${r.participant_category_code ? `(${r.participant_category_code})` : ''} - 1st Place: ${topWinner?.name || 'Announced'}`;
@@ -648,8 +648,8 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
       <nav className="bg-white/5 backdrop-blur-3xl border-b border-white/10 docked full-width top-0 sticky z-50 transition-all duration-300 shadow-[0_4px_30px_rgba(0,0,0,0.1)]">
         <div className="flex justify-between items-center px-gutter py-4 max-w-container-max mx-auto">
           <Link className="font-headline-lg text-headline-lg font-bold text-alviora-primary tracking-tighter" href={`/leaderboard?tenant_id=${tenantId}&bypass_html=true`}>
-            <img src="/brand/consolium-icon-192.png" alt="Consolium" className="mr-3 h-10 w-10 rounded-lg bg-white object-contain" />
-            <span className="text-2xl uppercase keep-font" style={{fontFamily:"Barabara, sans-serif",fontWeight:"normal",letterSpacing:"0.05em",color:"#ffffff"}}>CONSOLIUM</span>
+            <img src="/brand/consolium-icon-192.png" alt="Festos" className="mr-3 h-10 w-10 rounded-lg bg-white object-contain" />
+            <span className="text-2xl uppercase keep-font" style={{fontFamily:"Barabara, sans-serif",fontWeight:"normal",letterSpacing:"0.05em",color:"#ffffff"}}>FESTOS</span>
           </Link>
           <div className="hidden md:flex gap-8 handjet-wrapper">
             <Link className={`transition-colors duration-200 font-bold text-lg uppercase tracking-widest ${page === 'landing' ? 'text-[#c69a53]' : 'text-white hover:text-gray-200'}`} href={`/leaderboard?tenant_id=${tenantId}&bypass_html=true`}>Home</Link>
@@ -768,7 +768,7 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
               </div>
               
               <h1 className="font-display-xl-mobile md:font-display-xl text-display-xl-mobile md:text-display-xl glass-text mb-6 leading-tight font-bold">
-                <span style={{fontFamily: "Barabara, sans-serif"}} className="uppercase tracking-wide">CONSOLIUM</span><br />
+                <span style={{fontFamily: "Barabara, sans-serif"}} className="uppercase tracking-wide">FESTOS</span><br />
                 Between <span className="text-[#009499] animate-subtle-motion drop-shadow-lg" style={{fontFamily:"'VT323', monospace"}}>Pixels</span><br />
                 and <span className="text-[#009499] animate-subtle-motion drop-shadow-lg" style={{fontFamily:"'VT323', monospace"}}>People</span>
               </h1>
@@ -804,7 +804,7 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
             
             <div className="relative z-20 w-full p-6 flex flex-col items-center text-center mt-12">
               <div className="relative w-20 h-20 rounded-full bg-black/20 backdrop-blur-md border border-white/10 shadow-xl mb-6">
-                <img src="/brand/consolium-icon-512.png" alt="Consolium logo" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] object-contain" />
+                <img src="/brand/consolium-icon-512.png" alt="Festos logo" className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] h-[90%] object-contain" />
               </div>
 
               <div className="inline-flex items-center gap-2 bg-[#ffeedb]/10 text-[#f5d0a9] px-4 py-2 rounded-full mb-6 font-label-sm text-[10px] uppercase tracking-widest border border-[#f5d0a9]/20 shadow-sm backdrop-blur-sm">
@@ -813,7 +813,7 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
               </div>
               
               <h1 className="text-[2.75rem] glass-text mb-4 leading-[1.1] font-bold">
-                <span style={{fontFamily: "Barabara, sans-serif"}} className="uppercase tracking-wide text-[2rem]">CONSOLIUM</span><br />
+                <span style={{fontFamily: "Barabara, sans-serif"}} className="uppercase tracking-wide text-[2rem]">FESTOS</span><br />
                 Between <span className="text-[#009499] animate-subtle-motion drop-shadow-lg" style={{fontFamily:"'VT323', monospace"}}>Pixels</span><br />
                 and <span className="text-[#009499] animate-subtle-motion drop-shadow-lg" style={{fontFamily:"'VT323', monospace"}}>People</span>
               </h1>
@@ -1441,7 +1441,7 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
         <div className="flex flex-col md:flex-row justify-between items-center px-gutter py-8 max-w-container-max mx-auto gap-6">
           <div className="flex flex-col items-center md:items-start">
             <a className="font-bold tracking-tighter inline-block" href="#">
-              <span className="text-2xl uppercase keep-font" style={{fontFamily:"Barabara, sans-serif",fontWeight:"normal",letterSpacing:"0.05em",color:"#c69a53"}}>CONSOLIUM</span>
+              <span className="text-2xl uppercase keep-font" style={{fontFamily:"Barabara, sans-serif",fontWeight:"normal",letterSpacing:"0.05em",color:"#c69a53"}}>FESTOS</span>
             </a>
             <p className="font-['Handjet'] text-sm text-white/50 mt-2">Art Rooted in Revelation. A celebration of the sacred and the beautiful.</p>
           </div>
@@ -1461,7 +1461,7 @@ export function SahithyolsavLandingPage({ page = 'landing', children }: { page?:
         
         <div className="border-t border-white/5 py-4 px-gutter bg-transparent">
           <div className="max-w-container-max mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
-            <div className="font-['Handjet'] text-xs text-white/40">© {new Date().getFullYear()} Consolium. All rights reserved.</div>
+            <div className="font-['Handjet'] text-xs text-white/40">© {new Date().getFullYear()} Festos. All rights reserved.</div>
             <div className="flex gap-4 font-['Handjet'] text-xs text-white/40">
               <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
               <a href="#" className="hover:text-white transition-colors">Terms of Service</a>

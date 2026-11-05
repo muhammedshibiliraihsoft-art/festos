@@ -62,7 +62,7 @@ export default function LoginScreen() {
       keyboardShouldPersistTaps="handled" showsVerticalScrollIndicator={false}>
       <View style={styles.shell}>
         <View style={{ alignItems: 'center', marginBottom: 12 }}><ConsoliumLogo size={56} borderRadius={16} /></View>
-        <Text accessibilityRole="header" style={styles.brandTitle}>Consolium</Text>
+        <Text accessibilityRole="header" style={styles.brandTitle}>Festos</Text>
         <View style={styles.loginCard}>
           <View style={styles.loginHeader}>
             <Text accessibilityRole="header" style={styles.loginTitle}>Sign in</Text>

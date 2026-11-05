@@ -5,18 +5,11 @@ const cleanLabel = (value: string | null, fallback: string) => {
   return Array.from(cleaned || fallback).slice(0, 80).join('');
 };
 
-const shortLabel = (value: string) => {
-  const chars = Array.from(value);
-  if (chars.length <= 12) return value;
-  return `${chars.slice(0, 11).join('').trimEnd()}…`;
-};
-
 export function createPortalManifest(url: URL, portalValue: string | null) {
   if (portalValue !== 'team' && portalValue !== 'stage') return null;
 
   const portal: DynamicPortal = portalValue;
-  const fallbackName = portal === 'team' ? 'Team Portal' : 'Stage Management';
-  const name = cleanLabel(url.searchParams.get('name'), fallbackName);
+  const name = 'Festos';
   const identity = cleanLabel(url.searchParams.get('identity'), portal);
   const appId = `/${portal}/${encodeURIComponent(identity)}`;
   const startPath = portal === 'team'
@@ -27,7 +20,7 @@ export function createPortalManifest(url: URL, portalValue: string | null) {
   return {
     id: appId,
     name,
-    short_name: shortLabel(name),
+    short_name: 'Festos',
     start_url: new URL(startPath, url.origin).toString(),
     scope: `${url.origin}${portal === 'team' ? '/team/' : '/stage-management/'}`,
     display: 'standalone',

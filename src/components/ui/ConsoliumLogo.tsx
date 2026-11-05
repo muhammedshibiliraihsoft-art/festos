@@ -12,7 +12,7 @@ export function ConsoliumLogo({ size = 36, borderRadius, style }: ConsoliumLogoP
 
   return (
     <View
-      accessibilityLabel="Consolium logo"
+      accessibilityLabel="Festos logo"
       accessible
       style={[{
         width: size,
@@ -25,9 +25,9 @@ export function ConsoliumLogo({ size = 36, borderRadius, style }: ConsoliumLogoP
       }, style]}
     >
       <Image
-        source={require('../../assets/images/icon.png')}
+        source={require('../../assets/images/minimalist-olive-glow-emblem.png')}
         resizeMode="contain"
-        style={{ width: '100%', height: '100%' }}
+        style={{ width: size * 2, height: size * (4 / 3) }}
       />
     </View>
   );

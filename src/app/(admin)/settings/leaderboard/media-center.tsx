@@ -243,7 +243,7 @@ export default function MediaCenterPage() {
         .replace(/{event_name}/g, asset.event_name || '')
         .replace(/{result_no}/g, asset.result_no || '')
         .replace(/{result_no_text}/g, asset.result_no ? `🔹 *റിസൾട്ട് നമ്പർ:* ${asset.result_no}` : '')
-        .replace(/{festival_name}/g, activeFestival?.custom_name || 'Consolium');
+        .replace(/{festival_name}/g, activeFestival?.custom_name || 'Festos');
 
       if (Platform.OS === 'web') {
         try {
