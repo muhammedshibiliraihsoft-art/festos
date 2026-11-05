@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const { queries } = require('./clone-schema-catalog.cjs');
-const TARGET = 'negkevoetuvuqqlecdno';
+const TARGET = 'ahgvnikufbaszopilzdn';
 const quote = name => '"' + name.replaceAll('"', '""') + '"';
 const literal = value => "'" + String(value).replaceAll("'", "''") + "'";
 const tableKey = t => `${t.schema}.${t.name}`;

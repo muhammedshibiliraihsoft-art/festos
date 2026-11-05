@@ -90,9 +90,11 @@ const queries = {
     ORDER BY pubname,tablename`,
 };
 
-// These four application-owned helper schemas were discovered in the live source.
+// These seven application-owned helper schemas were discovered in the live source.
 // Managed Supabase schemas are not recreated. Empty target schemas are captured too.
-const applicationSchemas = ['public', 'code_letter_private', 'group_entry_private', 'scoring_private', 'stage_portal_private'];
+const applicationSchemas = ['public', 'code_letter_private', 'group_entry_private',
+  'private', 'program_read_private', 'scoring_private', 'stage_portal_private',
+  'team_substitution_private'];
 const schemaList = applicationSchemas.map(name => `'${name}'`).join(',');
 const schemaColumns = {
   relations: 'n.nspname', columns: 'n.nspname', functions: 'n.nspname',
@@ -116,8 +118,8 @@ async function main() {
     .map(line => line.match(/^([A-Z][A-Z0-9_]*)=(.*)$/)).filter(Boolean)
     .map(m => [m[1], m[2].trim().replace(/^['"]|['"]$/g, '')]));
   const projects = [
-    ['source', 'szhwkngspodujiqzblab', env.SOURCE_SUPABASE_ACCESS_TOKEN],
-    ['target', 'negkevoetuvuqqlecdno', env.SUPABASE_ACCESS_TOKEN],
+    ['source', 'negkevoetuvuqqlecdno', env.SOURCE_SUPABASE_ACCESS_TOKEN],
+    ['target', 'ahgvnikufbaszopilzdn', env.SUPABASE_ACCESS_TOKEN],
   ];
   for (const [name, ref] of projects) {
     const url = name === 'source' ? env.SOURCE_SUPABASE_URL : env.CLONE_SUPABASE_URL;

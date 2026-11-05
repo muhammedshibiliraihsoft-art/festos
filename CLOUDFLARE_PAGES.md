@@ -6,7 +6,7 @@ serves the SPA entry point for client-side routes opened directly or refreshed.
 
 ## Connect the GitHub repository
 
-Create a Pages project from `consoliumfestival-blip/conso-repo` and use:
+Create a Pages project from `muhammedshibiliraihsoft-art/festos` and use:
 
 - Production branch: `main`
 - Root directory: `/` (repository root)

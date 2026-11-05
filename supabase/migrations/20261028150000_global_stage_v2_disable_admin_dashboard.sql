@@ -31,9 +31,6 @@ CREATE TABLE IF NOT EXISTS stage_portal_private.application_feature_flags (
   updated_at timestamptz NOT NULL DEFAULT now()
 );
 REVOKE ALL ON stage_portal_private.application_feature_flags FROM PUBLIC, anon, authenticated;
-INSERT INTO stage_portal_private.application_feature_flags(flag, enabled)
-VALUES ('main_admin_dashboard', false)
-ON CONFLICT (flag) DO UPDATE SET enabled = EXCLUDED.enabled, updated_at = now();
 
 CREATE OR REPLACE FUNCTION public.main_admin_dashboard_enabled()
 RETURNS boolean LANGUAGE plpgsql STABLE SECURITY DEFINER SET search_path TO ''

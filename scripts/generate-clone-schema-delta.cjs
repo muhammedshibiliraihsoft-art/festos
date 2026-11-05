@@ -69,7 +69,7 @@ const updatedFunctions = source.functions.filter(f => !targetFunctions.has(signa
 for (const f of updatedFunctions) {
   const previous = targetFunctions.get(signature(f));
   if (previous && f.result !== previous.result) throw new Error(`Return type changed: ${signature(f)}`);
-  if (/sbp_[a-f0-9]{20,}|sb_secret_[A-Za-z0-9_-]{15,}|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+|szhwkngspodujiqzblab/i.test(f.definition)) {
+  if (/sbp_[a-f0-9]{20,}|sb_secret_[A-Za-z0-9_-]{15,}|eyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+|(?:negkevoetuvuqqlecdno|ahgvnikufbaszopilzdn)/i.test(f.definition)) {
     throw new Error(`Source-bound credential or URL requires review in function ${f.name}`);
   }
 }
@@ -140,7 +140,8 @@ const previousPublications = new Set(target.publications.map(publicationKey));
 section('Realtime publication membership', source.publications.filter(p => !previousPublications.has(publicationKey(p)))
   .map(p => `ALTER PUBLICATION ${quote(p.publication)} ADD TABLE ${quote(p.schema)}.${quote(p.table_name)};`));
 
-const sql = `-- TARGET ONLY: negkevoetuvuqqlecdno\n-- Source catalog observed: ${catalog.observed_at}\n-- Source Supabase was queried only through the read-only catalog endpoint.\n-- No source rows, Auth users, Storage objects or points configuration records imported.\n-- source_catalog_sha256=${sha(source)}\n-- target_catalog_sha256=${sha(target)}\nBEGIN;\nSET LOCAL lock_timeout = '5s';\nSET LOCAL statement_timeout = '90s';\nSET LOCAL check_function_bodies = false;\n${statements.join('\n')}\n\nNOTIFY pgrst, 'reload schema';\nCOMMIT;\n`;
+const sql = `-- TARGET ONLY: ahgvnikufbaszopilzdn\n-- Source catalog observed: ${catalog.observed_at}\n-- Source Supabase was queried only through the read-only catalog endpoint.\n-- This generator emits schema DDL only; approved global reference rows use a separate migration.
+-- No tenant-owned rows, Auth users, Storage objects or points-configuration records imported.\n-- source_catalog_sha256=${sha(source)}\n-- target_catalog_sha256=${sha(target)}\nBEGIN;\nSET LOCAL lock_timeout = '5s';\nSET LOCAL statement_timeout = '90s';\nSET LOCAL check_function_bodies = false;\n${statements.join('\n')}\n\nNOTIFY pgrst, 'reload schema';\nCOMMIT;\n`;
 fs.mkdirSync(path.dirname(path.resolve(output)), { recursive: true });
 fs.writeFileSync(output, sql);
 console.log(JSON.stringify({ migration: output, sections: counts, bytes: Buffer.byteLength(sql), executed: false }, null, 2));

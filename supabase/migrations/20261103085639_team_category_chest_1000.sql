@@ -341,29 +341,4 @@ BEGIN
   RETURN NULL;
 END $function$;
 
--- Convert any pre-existing team/1000 festivals in this same transaction.
--- Locked festivals require an explicit admin unlock before this migration can
--- proceed; capacity/category errors abort and roll back the complete migration.
-DO $migration$
-DECLARE v_festival record;
-BEGIN
-  FOR v_festival IN
-    SELECT f.id, f.chest_number_template, COALESCE(c.locked,false) AS locked
-    FROM public.festival_calendar f
-    LEFT JOIN public.festival_chest_number_controls c ON c.festival_id=f.id
-    WHERE f.chest_number_category_range=1000
-    ORDER BY f.id
-  LOOP
-    IF v_festival.locked THEN
-      RAISE EXCEPTION 'Cannot enable team/category chest numbers for locked festival %. Unlock it before applying this migration.',v_festival.id;
-    END IF;
-    IF v_festival.chest_number_template IS DISTINCT FROM 'team' THEN
-      -- The existing settings trigger performs the transactional renumber.
-      UPDATE public.festival_calendar SET chest_number_template='team' WHERE id=v_festival.id;
-    ELSE
-      PERFORM public.regenerate_festival_chest_numbers_internal(v_festival.id,NULL);
-    END IF;
-  END LOOP;
-END $migration$;
-
 COMMIT;

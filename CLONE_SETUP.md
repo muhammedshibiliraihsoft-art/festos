@@ -1,47 +1,63 @@
-# College deployment setup
+# College clone setup
 
-This repository contains the application, Edge Functions, and migration history for
-the existing target clone. The 2026-10-22 update synchronizes current application
-structure/functions without importing source business rows, Auth users, uploaded
-objects, or points-configuration records. See `CLONE_UPDATE_REPORT.md` for evidence
-and remaining runtime limitations.
+This repository is the editable application and database-migration target for
+Festos (muhammedshibiliraihsoft-art/festos). The Consolium conso-repo repository
+and its production Supabase project are read-only references. Do not write to the
+source repository or source database.
+
+## Current database contents
+
+As verified on 2026-11-05, target Supabase project ahgvnikufbaszopilzdn has its
+versioned schema migrations and tenant-independent reference/configuration rows.
+It is not an onboarded college: no tenants, festivals, profiles, audit rows, Auth
+users, or Storage buckets/objects were copied. See
+[FESTOS_CLONE_REPORT.md](FESTOS_CLONE_REPORT.md) for exact evidence.
+
+The approved global data consists of 11 categories, 170 unscoped items, 83 global
+scoring rules, 384 criteria for those rules, and the global
+main_admin_dashboard=true feature flag. Tenant/festival-scoped items and
+configuration, tenant creation records, users, participants, registrations,
+results, marks, audit history, Auth identities, and Storage objects are excluded.
+The target-only migration guards the scope and refuses ID/key collisions.
 
 ## Run the app
 
-1. Install dependencies with `npm ci`.
-2. Copy `.env.example` to `.env.local` and set the new college project's URL and
-   publishable key. The anon key is only needed if the app's compatibility fallback
-   is used.
-3. Start the app with `npm start` (or `npm run web`).
+1. Install dependencies with npm ci.
+2. Copy .env.example to .env.local and set the new college project's public
+   Supabase URL and publishable key. The anon key is only needed if the app's
+   compatibility fallback is used.
+3. Start the app with npm start (or npm run web).
 
-Only public client keys belong in `EXPO_PUBLIC_*`. Keep service-role keys, Supabase
-secret keys, database passwords, and provider credentials in server-side secrets.
+Only public client keys belong in EXPO_PUBLIC_*. Keep service-role keys,
+Supabase secret keys, database passwords, and provider credentials in server-side
+secrets.
 
 ## Set up Supabase
 
-The current target is already migrated. Do not replay historical seed migrations
-for this update. The original clone history contains default reference seed files;
-they are preserved as applied history, not instructions to add data again. A future
-fresh, empty installation needs a separately reviewed schema-only bootstrap that
-omits those seed operations. Do not replay the source repository's legacy migration
-chain against this target.
+For a fresh college database, apply this repository's versioned migrations in
+order to the verified target project. The target-specific chain removes the
+source's tenant/festival seed and backfill operations from six historical
+migrations, then adds the approved global data in
+20261105000000_festos_global_reference_data.sql. Do not restore those
+tenant-specific operations or run the old source repository's migration chain.
 
-The read-only catalog and parity scripts require an ignored management ENV based on
-`.env.clone.example`. They query source metadata only. The target-only migration
-executor validates project identity, checks snapshot fingerprints and preserves row
-counts. Its default `--mode=check` ends in ROLLBACK; persistent changes require the
-explicit `--mode=apply` and a versioned target migration path.
+The current Festos target already has 63 migration-history entries applied.
+Do not reset it or replay migrations manually. The read-only schema-catalog script
+uses the Management API read-only endpoint for both projects. The schema-delta
+executor reads and writes only the verified target; its default --mode=check
+ends with ROLLBACK, and persistent target changes require the explicit
+--mode=apply with a versioned migration in this repository.
 
-Function JWT settings are declared in `supabase/config.toml`. Only the pre-login
-resolver disables gateway JWT verification; its handler validates credentials and
-rate-limits login attempts. Do not blanket-disable JWT verification for other functions.
+Function JWT settings are declared in supabase/config.toml. Only the pre-login
+resolver disables gateway JWT verification; its handler validates credentials
+and rate-limits login attempts. Do not blanket-disable JWT verification for other
+functions.
 
-R2 setup is deferred until target credentials are available. Set server fields from
-`supabase/functions/.env.example` in the ignored management ENV, then use
-`node scripts/configure-clone-r2-secrets.cjs --env=<ignored-env-path>`. The script
-refuses to overwrite existing secrets. Set matching public bucket/domain values in
-the frontend environment and configure bucket CORS before upload testing. No source
-R2 objects are to be transferred.
+R2 setup is still separate from this database migration. Set target-only server
+fields from supabase/functions/.env.example in the ignored management ENV,
+then use node scripts/configure-clone-r2-secrets.cjs --env=<ignored-env-path>.
+The script refuses to overwrite existing secrets. No source R2 credentials or
+objects are transferred.
 
-Do not import production database rows, Auth accounts, or Storage objects from the
-source project. Create new admin accounts in the new project's Auth system.
+Create new admin accounts in the new project's Auth system. Never copy production
+Auth accounts, tenant records, or Storage objects.

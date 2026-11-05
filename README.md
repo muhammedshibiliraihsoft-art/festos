@@ -12,6 +12,6 @@ scheduling, scoring, and public results. The app uses Expo Router and Supabase.
 
 ## Supabase and client clone
 
-See [CLONE_SETUP.md](CLONE_SETUP.md) for the clean schema migration, fresh default
-seeds, Edge Function setup, and credential-safety guidance. No production rows or
-Auth accounts are included.
+See [CLONE_SETUP.md](CLONE_SETUP.md) for the schema migration, approved global
+reference data, Edge Function setup, and credential-safety guidance. Tenant-owned
+production rows, Auth accounts, and Storage objects are not included.

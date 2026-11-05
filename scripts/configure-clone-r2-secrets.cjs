@@ -5,7 +5,7 @@ if (!input) throw new Error('Usage: --env=<ignored-target-env-path>');
 const env = Object.fromEntries(fs.readFileSync(input, 'utf8').split(/\r?\n/)
   .map(line => line.match(/^([A-Z][A-Z0-9_]*)=(.*)$/)).filter(Boolean)
   .map(m => [m[1], m[2].trim().replace(/^['"]|['"]$/g, '')]));
-const target = 'negkevoetuvuqqlecdno';
+const target = 'ahgvnikufbaszopilzdn';
 async function main() {
   if (env.CLONE_SUPABASE_PROJECT_REF !== target
     || new URL(env.CLONE_SUPABASE_URL).hostname !== `${target}.supabase.co`) {

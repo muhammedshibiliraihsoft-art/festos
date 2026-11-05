@@ -1,4 +1,6 @@
-# Existing clone update: verified progress
+# Historical clone update: verified progress
+
+> Historical record for the 2026-10-22 sahi-m-fest → conso-repo clone. It does not describe the current festos repository or its Supabase target. See [FESTOS_CLONE_REPORT.md](FESTOS_CLONE_REPORT.md) for the current clone.
 
 Observed: 2026-10-22. Application schema parity, target Edge Function deployment, GitHub promotion and hosted target smoke checks are verified. The Cloudflare Pages check is still reporting `Building` even though the updated bundle is live.
 

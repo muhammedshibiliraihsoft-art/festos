@@ -5,10 +5,6 @@ BEGIN;
 ALTER TABLE public.schedules
   ADD COLUMN IF NOT EXISTS is_public_visible boolean;
 
-UPDATE public.schedules
-SET is_public_visible = true
-WHERE is_public_visible IS NULL;
-
 ALTER TABLE public.schedules
   ALTER COLUMN is_public_visible SET DEFAULT false,
   ALTER COLUMN is_public_visible SET NOT NULL;
