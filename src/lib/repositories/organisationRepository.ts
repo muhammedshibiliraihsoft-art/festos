@@ -2,11 +2,22 @@ import { supabase } from '../../core/config/supabase';
 
 export const organisationRepository = {
   async getOrganisation(tenantId: string) {
-    return await supabase
-      .from('organisations')
-      .select('id, org_type')
-      .eq('tenant_id', tenantId)
-      .single();
+    const { data, error } = await supabase
+      .from('tenants')
+      .select('organisation:organisations!tenants_organisation_id_fkey(id, name, org_type)')
+      .eq('id', tenantId)
+      .maybeSingle();
+
+    const organisation = data?.organisation as unknown as
+      | { id: string; name: string; org_type: string }
+      | { id: string; name: string; org_type: string }[]
+      | null
+      | undefined;
+
+    return {
+      data: Array.isArray(organisation) ? organisation[0] ?? null : organisation ?? null,
+      error,
+    };
   },
 
   async getChildOrganisations(parentId: string, archived = false) {

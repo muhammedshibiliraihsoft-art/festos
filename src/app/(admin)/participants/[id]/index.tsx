@@ -9,6 +9,7 @@ import { SsfCard } from '../../../../components/ui/SsfCard';
 import { SsfButton } from '../../../../components/ui/SsfButton';
 import { useAuthStore } from '../../../../core/store/authStore';
 import { useParticipants } from '../../../../core/hooks/useParticipants';
+import { organisationService } from '../../../../services/organisationService';
 import {
   ArrowLeft,
   Lock,
@@ -156,6 +157,7 @@ export default function ParticipantDetails() {
   const [dob, setDob] = useState('');
   const [selectedOrgId, setSelectedOrgId] = useState<string>('');
   const [organisations, setOrganisations] = useState<any[]>([]);
+  const [tenantOrganisationId, setTenantOrganisationId] = useState<string | null>(null);
   const [categoryCode, setCategoryCode] = useState('');
   const [gender, setGender] = useState('');
   const [classStd, setClassStd] = useState('');
@@ -180,9 +182,8 @@ export default function ParticipantDetails() {
       .includes(assignedItemSearch.trim().toLowerCase()),
   );
   const festivalLevel = String(festival?.level || '').trim().toLowerCase();
-  const currentOrganisation = organisations.find((organisation) => organisation.tenant_id === validTenantId);
   const availableOrganisations = festival?.chest_number_template === 'team' || festivalLevel === 'sector' || festivalLevel === 'division'
-    ? organisations.filter((organisation) => organisation.parent_id === currentOrganisation?.id)
+    ? organisations.filter((organisation) => organisation.parent_id === tenantOrganisationId)
     : organisations;
 
   // Custom Action Modal State
@@ -224,13 +225,33 @@ export default function ParticipantDetails() {
   }, [participant]);
 
   useEffect(() => {
-    if (validTenantId) {
-      import('../../../../services/participantService').then(({ participantService }) => {
-        participantService.listOrganisations(validTenantId).then((data: any[]) => {
-          setOrganisations(data);
-        });
-      });
+    if (!validTenantId) {
+      setOrganisations([]);
+      setTenantOrganisationId(null);
+      return;
     }
+
+    let cancelled = false;
+    setOrganisations([]);
+    setTenantOrganisationId(null);
+    Promise.all([
+      import('../../../../services/participantService').then(({ participantService }) =>
+        participantService.listOrganisations(validTenantId),
+      ),
+      organisationService.getMyOrganisation(validTenantId),
+    ])
+      .then(([data, tenantOrganisation]) => {
+        if (cancelled) return;
+        setOrganisations(data);
+        setTenantOrganisationId(tenantOrganisation?.id ?? null);
+      })
+      .catch(() => {
+        if (cancelled) return;
+        setOrganisations([]);
+        setTenantOrganisationId(null);
+      });
+
+    return () => { cancelled = true; };
   }, [validTenantId]);
 
   const toggleLock = async () => {

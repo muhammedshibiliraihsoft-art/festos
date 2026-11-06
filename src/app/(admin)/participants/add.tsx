@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { SsfCard } from '../../../components/ui/SsfCard';
 import { SsfButton } from '../../../components/ui/SsfButton';
 import { participantService, type OrganisationOption } from '../../../services/participantService';
+import { organisationService } from '../../../services/organisationService';
 import { useAuthStore } from '../../../core/store/authStore';
 import { getCategory, validateParticipant, calculateAge, getCutoffDate, DEFAULT_FESTIVAL_YEAR, checkClassAgeConsistency, getCategoryDOBRange, type CategoryCode } from '../../../core/utils/participantValidation';
 import { Building2, CalendarDays, Eye, Globe2, Trophy, Upload, UserRound, UserRoundPlus } from 'lucide-react-native';
@@ -91,6 +92,7 @@ export default function AddParticipant() {
   const [collegeCategory, setCollegeCategory] = useState('');
   const [selectedOrgId, setSelectedOrgId] = useState<string>('');
   const [organisations, setOrganisations] = useState<OrganisationOption[]>([]);
+  const [tenantOrganisationId, setTenantOrganisationId] = useState<string | null>(null);
   const [isOrganisationsLoading, setIsOrganisationsLoading] = useState(false);
   const [organisationsLoadError, setOrganisationsLoadError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -109,9 +111,8 @@ export default function AddParticipant() {
   const categoryFestivalRef = useRef<string | undefined>(festivalId);
 
   const festivalLevel = String(activeFestival?.level || '').trim().toLowerCase();
-  const currentOrganisation = organisations.find((organisation) => organisation.tenant_id === validTenantId);
   const availableOrganisations = (activeFestival?.chest_number_template === 'team' || festivalLevel === 'sector' || festivalLevel === 'division')
-    ? organisations.filter((organisation) => organisation.parent_id === currentOrganisation?.id)
+    ? organisations.filter((organisation) => organisation.parent_id === tenantOrganisationId)
     : organisations;
 
   useEffect(() => {
@@ -158,6 +159,7 @@ export default function AddParticipant() {
   useEffect(() => {
     if (!validTenantId) {
       setOrganisations([]);
+      setTenantOrganisationId(null);
       setIsOrganisationsLoading(false);
       setOrganisationsLoadError('');
       return;
@@ -165,15 +167,23 @@ export default function AddParticipant() {
 
     let cancelled = false;
     setOrganisations([]);
+    setTenantOrganisationId(null);
     setIsOrganisationsLoading(true);
     setOrganisationsLoadError('');
-    participantService.listOrganisations(validTenantId)
-      .then((data) => {
-        if (!cancelled) setOrganisations(data);
+    Promise.all([
+      participantService.listOrganisations(validTenantId),
+      organisationService.getMyOrganisation(validTenantId),
+    ])
+      .then(([data, tenantOrganisation]) => {
+        if (!cancelled) {
+          setOrganisations(data);
+          setTenantOrganisationId(tenantOrganisation?.id ?? null);
+        }
       })
       .catch((error: unknown) => {
         if (cancelled) return;
         setOrganisations([]);
+        setTenantOrganisationId(null);
         setOrganisationsLoadError(error instanceof Error ? error.message : 'Could not load organisations.');
       })
       .finally(() => {

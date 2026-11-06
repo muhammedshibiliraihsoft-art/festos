@@ -1,4 +1,5 @@
 import { supabase } from '../../core/config/supabase';
+import { organisationRepository } from '../../lib/repositories/organisationRepository';
 import { CompetitionItemUpdate, DatabaseProvider, ListResult, QueryResult } from './DatabaseProvider';
 import { CompetitionPublication, competitionArguments } from '../../types/scoring';
 
@@ -436,12 +437,7 @@ export class SupabaseDatabaseProvider implements DatabaseProvider {
     }[];
   }>> {
     try {
-      const { data: org, error: orgErr } = await supabase
-        .from('organisations')
-        .select('name, org_type')
-        .eq('tenant_id', tenantId)
-        .limit(1)
-        .maybeSingle();
+      const { data: org, error: orgErr } = await organisationRepository.getOrganisation(tenantId);
 
       if (orgErr) throw orgErr;
 
