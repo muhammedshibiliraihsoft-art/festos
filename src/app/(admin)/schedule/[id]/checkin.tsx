@@ -22,6 +22,7 @@ import { useStageManagement } from '../../../../core/hooks/useStageManagement';
 import { stageManagementService } from '../../../../services/stageManagementService';
 import { useQuery } from '@tanstack/react-query';
 import { substageForChest } from '@/core/utils/scheduleSubstages';
+import { CameraView, useCameraPermissions } from 'expo-camera';
 import {
   ArrowLeft,
   CheckCircle2,
@@ -88,71 +89,51 @@ export default function CheckIn() {
     visible: boolean;
   }>({ reg: null, visible: false });
 
-  // Web QR scanner state
-  const videoRef = useRef<any>(null);
+  // QR scanner state
+  const [cameraPermission, requestCameraPermission] = useCameraPermissions();
+  const hasScannedRef = useRef(false);
   const [scannerError, setScannerError] = useState('');
 
-  // Starts web camera for QR scanning
+  // Starts the platform camera and its QR decoder.
   const startWebScanner = async () => {
     setScannerError('');
-    setIsScannerOpen(true);
+    hasScannedRef.current = false;
+
     if (Platform.OS === 'web') {
+      if (!window.isSecureContext || !navigator.mediaDevices?.getUserMedia) {
+        setScannerError('Camera scanning requires HTTPS (or localhost) and a browser with camera access.');
+        setIsScannerOpen(true);
+        return;
+      }
+    } else if (!cameraPermission?.granted) {
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'environment' } });
-        if (videoRef.current) {
-          videoRef.current.srcObject = stream;
-          videoRef.current.play();
-          startWebQRDecoding(stream);
+        const permission = await requestCameraPermission();
+        if (!permission.granted) {
+          setScannerError(
+            permission.canAskAgain
+              ? 'Camera permission is required to scan a chest card.'
+              : 'Camera access is blocked in device settings. Enable camera permission and try again.'
+          );
+          setIsScannerOpen(true);
+          return;
         }
-      } catch (err: any) {
-        const isSecurityError = err?.name === 'NotAllowedError' || err?.name === 'SecurityError';
-        setScannerError(
-          isSecurityError
-            ? '📷 Camera permission denied.\n\nFix: Click the 🔒 lock icon in your browser address bar → Camera → Allow → Refresh the page.'
-            : '📷 Camera not available. Please check if another app is using the camera.'
-        );
+      } catch {
+        setScannerError('Unable to request camera permission. Check camera access in device settings.');
+        setIsScannerOpen(true);
+        return;
       }
     }
+
+    setIsScannerOpen(true);
   };
 
   const stopWebScanner = () => {
-    if (Platform.OS === 'web' && videoRef.current?.srcObject) {
-      (videoRef.current.srcObject as MediaStream).getTracks().forEach((t: MediaStreamTrack) => t.stop());
-      videoRef.current.srcObject = null;
-    }
     setIsScannerOpen(false);
   };
 
-  // Web-based QR decoding using BarcodeDetector API (Chrome) or fallback manual
-  const startWebQRDecoding = (stream: MediaStream) => {
-    if (Platform.OS !== 'web') return;
-    const BarcodeDetector = (window as any).BarcodeDetector;
-    if (!BarcodeDetector) {
-      setScannerError('QR scanning not supported in this browser. Use Chrome on Android/Desktop.');
-      return;
-    }
-    const detector = new BarcodeDetector({ formats: ['qr_code'] });
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext('2d');
-
-    const scan = async () => {
-      if (!videoRef.current || !videoRef.current.srcObject) return;
-      canvas.width = videoRef.current.videoWidth;
-      canvas.height = videoRef.current.videoHeight;
-      ctx?.drawImage(videoRef.current, 0, 0);
-      try {
-        const codes = await detector.detect(canvas);
-        if (codes.length > 0) {
-          handleQRResult(codes[0].rawValue);
-          return; // Stop after first scan
-        }
-      } catch (_) {}
-      requestAnimationFrame(scan);
-    };
-    videoRef.current?.addEventListener('playing', () => requestAnimationFrame(scan));
-  };
-
   const handleQRResult = (rawValue: string) => {
+    if (hasScannedRef.current) return;
+    hasScannedRef.current = true;
     stopWebScanner();
     try {
       let parsed: { chest?: string; pid?: string; cat?: string } = {};
@@ -550,16 +531,18 @@ export default function CheckIn() {
 
             {/* Camera preview */}
             <View style={{ position: 'relative', height: 320, backgroundColor: ui.shadow.shadowColor, alignItems: 'center', justifyContent: 'center' }}>
-              {Platform.OS === 'web' ? (
-                // @ts-ignore
-                <video
-                  ref={videoRef}
-                  style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                  playsInline
-                  muted
-                />
+              {scannerError ? (
+                <Text style={{ color: coreColor('#F87171', 'danger'), fontSize: 13, textAlign: 'center', padding: 20 }}>
+                  {scannerError}
+                </Text>
               ) : (
-                <Text style={{ color: ui.colors.onPrimary }}>Camera not supported on this platform</Text>
+                <CameraView
+                  style={{ width: '100%', height: '100%' }}
+                  facing="back"
+                  barcodeScannerSettings={{ barcodeTypes: ['qr'] }}
+                  onBarcodeScanned={({ data }) => handleQRResult(data)}
+                  onMountError={(event) => setScannerError(event.message || 'Camera could not be started.')}
+                />
               )}
               {/* Scan overlay corners */}
               <View style={{ position: 'absolute', top: 60, left: 60, width: 180, height: 180, pointerEvents: 'none' }}>
@@ -579,9 +562,7 @@ export default function CheckIn() {
             </View>
 
             <View style={{ padding: 16, alignItems: 'center' }}>
-              {scannerError ? (
-                <Text style={{ color: coreColor('#F87171', 'danger'), fontSize: 13, textAlign: 'center' }}>{scannerError}</Text>
-              ) : (
+              {!scannerError && (
                 <Text style={{ color: coreColor('#9CA3AF', 'textMuted'), fontSize: 13 }}>Point camera at the chest card QR code</Text>
               )}
             </View>
