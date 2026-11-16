@@ -539,6 +539,7 @@ export default function CheckIn() {
                 <CameraView
                   style={{ width: '100%', height: '100%' }}
                   facing="back"
+                  autofocus={Platform.OS === 'web' ? 'on' : undefined}
                   barcodeScannerSettings={{ barcodeTypes: ['qr'] }}
                   onBarcodeScanned={({ data }) => handleQRResult(data)}
                   onMountError={(event) => setScannerError(event.message || 'Camera could not be started.')}
